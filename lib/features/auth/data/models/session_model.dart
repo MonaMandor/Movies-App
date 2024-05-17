@@ -1,8 +1,8 @@
 // features/auth/data/models/session_model.dart
-import 'package:movie/features/auth/domain/entities/session_entitiy.dart';import 'package:movie/features/auth/domain/entities/session_entitiy.dart';
+import 'package:movie/features/auth/domain/entities/session_entitiy.dart';
 
 class SessionModel extends SessionEntity{
-   SessionModel({
+   const SessionModel({
     required super.sessionId,
   
   });

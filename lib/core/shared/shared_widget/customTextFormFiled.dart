@@ -6,7 +6,6 @@ import 'package:movie/core/constansts/context_extensions.dart';
 import 'package:movie/core/theme/app_Theme.dart';
 import 'package:movie/core/theme/app_colors.dart';
 
-
 class CustomTextField extends StatefulWidget {
   final Color? fillColor;
   final double? height;
@@ -68,7 +67,6 @@ class _CustomTextFieldState extends State<CustomTextField> {
 
   Widget build(BuildContext context) {
     return TextFormField(
-  
       keyboardType: widget.keyboardType,
       controller: widget.controller,
       validator: widget.validator,
@@ -77,7 +75,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
           .theme
           .textTheme
           .bodyLarge
-          ?.copyWith(color: AppColors.primaryTextColor),
+          ?.copyWith(color: Colors.black),
       decoration: InputDecoration(
         errorStyle: const TextStyle(
           fontSize: 14,

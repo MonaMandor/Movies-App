@@ -6,7 +6,6 @@ import 'package:movie/features/auth/presentation/pages/login_screeen.dart';
 import 'package:movie/features/auth/presentation/pages/splash_screen.dart';
 import 'package:movie/features/home/presentation/pages/home_layout.dart';
 import 'package:movie/features/movie/domain/entities/movie_entity.dart';
-import 'package:movie/features/home/presentation/pages/Movies_screen.dart';
 import 'package:movie/features/movie/presentation/pages/movie_details_screen.dart';
 import 'package:movie/routes/routes_names.dart';
 import 'package:modular_interfaces/src/route/modular_arguments.dart';

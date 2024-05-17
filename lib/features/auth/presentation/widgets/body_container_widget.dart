@@ -2,6 +2,7 @@
 // ignore_for_file: prefer_const_constructors_in_immutables, prefer_const_constructors// ignore_for_file: prefer_const_constructors_in_immutables, prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:movie/core/theme/app_colors.dart';
 
 class BodyContainer extends StatelessWidget {
   final Widget child;
@@ -49,14 +50,14 @@ class BodyContainer extends StatelessWidget {
                     gradient: LinearGradient(
                       begin: Alignment(0.00, -1.00),
                       end: Alignment(1, 0),
-                      colors: [Colors.black.withOpacity(0), Color(0xFF7F00FF)],
+                      colors: [Colors.black.withOpacity(0), AppColors.secondaryColor],
                     ),
                     borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(50),
                       topRight: Radius.circular(50),
                     ),
                     border: Border.all(
-                      color: Color(0xFF7F00FF),
+                      color:AppColors.secondaryColor,
                       width: 1,
                     ),
                   ),

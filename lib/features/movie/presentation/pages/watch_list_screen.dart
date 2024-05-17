@@ -1,51 +1,30 @@
 // features/movie/presentation/pages/watch_list_screen.dart
-import 'package:flutter/material.dart';import 'package:flutter/material.dart';
+// ignore_for_file: prefer_const_constructors
+
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:movie/core/constansts/context_extensions.dart';
 import 'package:movie/features/auth/presentation/bloc/auth_bloc.dart';
-import 'package:movie/features/movie/domain/entities/add_delet_to_watch_list_params.dart';
-import 'package:movie/features/movie/presentation/bloc/movie_bloc.dart';
 import 'package:movie/features/movie/presentation/widgets/watch_list_widget.dart';
+import 'package:movie/routes/routes_names.dart';
 
 class WatchListScreen extends StatefulWidget {
-  const WatchListScreen({Key? key}) : super(key: key);
+  const WatchListScreen({super.key});
 
   @override
   State<WatchListScreen> createState() => _WatchListScreenState();
 }
 
-class _WatchListScreenState extends State<WatchListScreen> with AutomaticKeepAliveClientMixin {
-  int currentPage = 1;
-  bool reachedEnd = false;
-
-  @override
-  void initState() {
-    super.initState();
-    fetchWatchListMovies();
-  }
-
-  void fetchWatchListMovies() {
-    if (!reachedEnd) {
-      WidgetsBinding.instance!.addPostFrameCallback((_) {
-        final authBloc = BlocProvider.of<AuthBloc>(context);
-        BlocProvider.of<MovieBloc>(context).add(GetWatchListEvent(
-          page: currentPage,
-          params: AddDetetToWatchListParams(
-            movieId: 0,
-            sessionId: authBloc.sessionEntity!.sessionId,
-            accountId: authBloc.accountId!,
-            isAdd: false,
-          ),
-        ));
-      });
-    }
-  }
-
-  @override
+class _WatchListScreenState extends State<WatchListScreen>
+    with AutomaticKeepAliveClientMixin {
+        @override
   bool get wantKeepAlive => true;
 
   @override
   Widget build(BuildContext context) {
-    super.build(context); // Required for AutomaticKeepAliveClientMixin to work
+    final authBloc = BlocProvider.of<AuthBloc>(context);
+    super.build(context);
     return Scaffold(
       body: Container(
         height: double.infinity,
@@ -56,30 +35,46 @@ class _WatchListScreenState extends State<WatchListScreen> with AutomaticKeepAli
             colors: [Color.fromARGB(255, 59, 5, 52), Color(0xFF14151C)],
           ),
         ),
-        child: BlocBuilder<MovieBloc, MovieState>(
-          builder: (context, state) {
-            if (state is GetWatchListMoviesLoading && currentPage == 1) {
-              return const Center(child: CircularProgressIndicator());
-            } else if (state is GetWatchListMoviesSuccess) {
-              if (state.hasReachedMax) {
-                reachedEnd = true;
-              }
-              return WatchListWidget(
-                movies: state.movies,
-                onScrollEnd: () {
-                  if (!reachedEnd) {
-                    currentPage++;
-                    fetchWatchListMovies(); // Fetch more movies when scrolled to the end
-                  }
-                },
-              );
-            } else if (state is GetWatchListMoviesError) {
-              return Center(child: Text(state.message));
-            }
-            return Container();
-          },
-        ),
+        child: authBloc.sessionEntity == null
+            ? Container(
+                width: double.infinity,
+                padding: const EdgeInsets.all(10),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      'Please login to see your watch list',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    SizedBox(height: context.propHeight(40),),
+                    ElevatedButton(
+                      onPressed: () {
+                        Modular.to.navigate(AppRoutes.loginScreen);
+                      },
+                      child: const Text('Login'),
+                    )
+                  ],
+                ),
+              )
+            : Padding(
+              padding:  EdgeInsets.only(
+                left: context.propWidth(10),
+                right: context.propWidth(10),
+                top: context.propHeight(30),
+              ),
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                     SizedBox(height: context.propHeight(10),),
+                  Text('Tab on the movie to remove from watch list', style: TextStyle(color: Colors.white),),
+                 SizedBox(height: context.propHeight(20),),
+                    WatchListWidget(),
+                  ],
+                ),
+              ),
+            ),
       ),
     );
   }
+
 }

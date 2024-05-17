@@ -9,12 +9,3 @@ abstract class HomeEvent extends Equatable {
   @override
   List<Object> get props => [];
 }
-
-class GetNowPlayingMoviesEvent extends HomeEvent {
-  final int page;
-
-  GetNowPlayingMoviesEvent({required this.page});
-
-  @override
-  List<Object> get props => [page];
-}

@@ -41,7 +41,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> with SingleTick
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: const Text('Adding to watch list...'),
-                duration: const Duration(seconds: 2),
+                duration: const Duration(seconds: 1),
                 backgroundColor: AppColors.primaryColor,
               ),
             );
@@ -116,6 +116,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> with SingleTick
                                   children: [
                                     Text(
                                       '${widget.movie.voteAverage}',
+                                      
                                       style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontSize: 20),
                                     ),
                                     SizedBox(width: context.propWidth(10)),

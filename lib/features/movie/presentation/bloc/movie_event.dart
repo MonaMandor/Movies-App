@@ -18,7 +18,7 @@ class AddToWatchListEvent extends MovieEvent {
 }
 class GetWatchListEvent extends MovieEvent {
   final int page;
-  final AddDetetToWatchListParams params;
+  final GetoWatchListParams params;
 
   const GetWatchListEvent({required this.page, required this.params});
 

@@ -1,6 +1,9 @@
 // features/auth/presentation/bloc/auth_bloc.dart
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:movie/core/constansts/strings/messages.dart';
 import 'package:movie/core/errors/failurs.dart';
 import 'package:movie/features/auth/domain/entities/create_session_params.dart';
@@ -10,7 +13,9 @@ import 'package:movie/features/auth/domain/usecases/check_login_use_case.dart';
 import 'package:movie/features/auth/domain/usecases/create_session_use_case.dart';
 import 'package:movie/features/auth/domain/usecases/create_token_use_case.dart';
 import 'package:movie/features/auth/domain/usecases/get_account_id_use_case.dart';
+import 'package:movie/features/auth/domain/usecases/logout.dart';
 import 'package:movie/features/auth/domain/usecases/validate_token_use_case.dart';
+import 'package:movie/routes/routes_names.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';
@@ -21,6 +26,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final ValidateTokenUseCase validateTokenUseCase;
   final CeckLoginUseCase checkLoginUseCase;
   final GetAccountIdUseCase getAccountIdUseCase;
+  final LogoutUseCase logoutUseCase;
 
   String? token;
   SessionEntity? sessionEntity;
@@ -32,9 +38,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     required this.validateTokenUseCase,
     required this.checkLoginUseCase,
     required this.getAccountIdUseCase,
+    required this.logoutUseCase,
   }) : super(AuthInitial()) {
     on<AuthenticateUserEvent>(_onAuthenticateUserEvent);
-    on<CheckLoginEvent>(_onCheckLoginEvent);
+    on<CheckLoginEvent>(_onCheckLoginEvent) ;
+    on<LogoutEvent>(_onLogoutEvent);
   }
 
   Future<void> _onAuthenticateUserEvent(
@@ -78,6 +86,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
                   (Id) async {
                     accountId = Id;
                     if (!emit.isDone) {
+                      Modular.to.navigate(AppRoutes.homeLayout);
                       emit(AuthenticateUserSuccess(sessionEntity: session));
                     }
                   },
@@ -115,6 +124,26 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         );
       },
     );
+  }
+
+  Future<void> _onLogoutEvent(
+      LogoutEvent event, Emitter<AuthState> emit) async {
+    // emit(LogoutLoading());
+    sessionEntity = null;
+    accountId = null;
+    final failureOrUnit = await logoutUseCase();
+    await failureOrUnit.fold(
+      (failure) async {
+        // emit(LogoutFailure(message: _mapFailureToMessage(failure)));
+      },
+      (unit) async {
+        if (!emit.isDone) {
+          Modular.to.navigate(AppRoutes.anonymousOrAuthenticatedScreen);
+          emit(AuthInitial() );
+        }
+      },
+    );
+    // emit(LogoutSuccess());
   }
 
   String _mapFailureToMessage(Failure failure) {

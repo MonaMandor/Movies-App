@@ -1,23 +1,18 @@
-// features/movie/presentation/widgets/now_playing_list_widget.dart
-import 'package:movie/features/movie/presentation/controllers/now_playing_pagination.dart';
-import 'package:movie/injection_container.dart';import 'package:movie/injection_container.dart';
-
-import '../../domain/entities/movie_entity.dart';
-// features/movie/presentation/widgets/now_playing_list_widget.dart
+// features/movie/presentation/widgets/up_coming_movies_widget.dart
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:movie/core/constansts/context_extensions.dart';
+import 'package:movie/features/movie/domain/entities/movie_entity.dart';
 import 'package:movie/features/movie/presentation/bloc/movie_bloc.dart';
 import 'package:movie/features/movie/presentation/widgets/movie_widget.dart';
 import 'package:movie/routes/routes_names.dart';
 
-class BuildNowPlayingList extends StatelessWidget {
-  NowPlayingPagination movies = sl.get<MovieBloc>().nowPlayingPagination;
-
+class BuildUpComingMoviesWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    movies.init();
+    final movies = ReadContext(context).read<MovieBloc>().upComingPagination; // Using ReadContext
     return PagedListView.separated(
       pagingController: movies.pagingController,
       shrinkWrap: true,
@@ -30,11 +25,8 @@ class BuildNowPlayingList extends StatelessWidget {
           child: MovieWidget(movie: movie),
         ),
       ),
-
-
       separatorBuilder: (context, index) =>
           SizedBox(height: context.propHeight(20)),
-    
     );
   }
 }

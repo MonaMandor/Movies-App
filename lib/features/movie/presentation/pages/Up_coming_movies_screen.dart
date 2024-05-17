@@ -1,18 +1,18 @@
-// features/movie/presentation/pages/popular_screen.dart
+// features/movie/presentation/pages/Up_coming_movies_screen.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie/features/movie/presentation/bloc/movie_bloc.dart';
-import 'package:movie/features/movie/presentation/widgets/popular_list_widget.dart';
+import 'package:movie/features/movie/presentation/widgets/up_coming_movies_widget.dart';
 import 'package:movie/injection_container.dart';
 
-class PopularScreen extends StatefulWidget {
-  const PopularScreen({super.key});
+class UpComingScreen extends StatefulWidget {
+  const UpComingScreen({super.key});
 
   @override
-  State<PopularScreen> createState() => _PopularScreenState();
+  State<UpComingScreen> createState() => _UpComingScreenState();
 }
 
-class _PopularScreenState extends State<PopularScreen>
+class _UpComingScreenState extends State<UpComingScreen>
     with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
@@ -31,8 +31,8 @@ class _PopularScreenState extends State<PopularScreen>
           ),
         ),
         child: BlocProvider(
-          create: (context) => sl<MovieBloc>()..popularPagination.init(),
-          child: BuildPopularList(),
+          create: (context) => sl<MovieBloc>()..upComingPagination.init(),
+          child: BuildUpComingMoviesWidget(),
         ),
       ),
     );

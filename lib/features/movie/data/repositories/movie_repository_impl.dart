@@ -1,4 +1,6 @@
 // features/movie/data/repositories/movie_repository_impl.dart
+import '../../domain/entities/get_wish_paramater.dart';import '../../domain/entities/get_wish_paramater.dart';
+// features/movie/data/repositories/movie_repository_impl.dart
 import 'package:dartz/dartz.dart';
 import 'package:movie/core/errors/exception.dart';
 import 'package:movie/core/errors/failurs.dart';
@@ -23,7 +25,7 @@ class MovieRepositoryImpl implements MovieRepository {
   });
 
   @override
-  Future<Either<Failure, List<Unit>>> addToWatchList(AddDetetToWatchListParams params)async {
+  Future<Either<Failure, List<Unit>>> addOrDeletToWatchList(AddDetetToWatchListParams params)async {
     final AddDeletToWatchListModel addToWatchListModel = AddDeletToWatchListModel(
       movieId: params.movieId,
       sessionId: params.sessionId,
@@ -32,7 +34,7 @@ class MovieRepositoryImpl implements MovieRepository {
     );
     if (await networkInfo.isConnected) {
       try {
-        await remoteDataSource.addToWatchList(addToWatchListModel);
+        await remoteDataSource.addOrDeletToWatchList(addToWatchListModel);
         return const Right([unit]);
       } on ServerException {
         return Left(ServerFailure());
@@ -47,16 +49,11 @@ class MovieRepositoryImpl implements MovieRepository {
   }
 
   @override
-  Future<Either<Failure, MoviesEntity>> getWitchListMovies(int page, AddDetetToWatchListParams params)async {
-   final AddDeletToWatchListModel addToWatchListModel = AddDeletToWatchListModel(
-      movieId: params.movieId,
-      sessionId: params.sessionId,
-      accountId: params.accountId,
-      isAdd: params.isAdd,
-    );
+  Future<Either<Failure, MoviesEntity>> getWitchListMovies(int page, GetoWatchListParams params)async {
+   
     if (await networkInfo.isConnected) {
       try {
-        final moviesData = await remoteDataSource.getWitchListMovies(page, addToWatchListModel);
+        final moviesData = await remoteDataSource.getWitchListMovies(page, params);
        final movies = MoviesModel.fromJson(moviesData);
         return Right(movies);
       } on ServerException {

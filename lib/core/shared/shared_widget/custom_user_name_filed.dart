@@ -37,7 +37,7 @@ class CustomUserNameField extends StatelessWidget {
           ),
           
          // height: context.propHeight(52),
-          fillColor: Color(0xFF7F00FF),
+          fillColor: AppColors.secondaryColor,
     
           controller: controller,
           keyboardType: TextInputType.name,

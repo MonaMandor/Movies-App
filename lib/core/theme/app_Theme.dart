@@ -6,10 +6,9 @@ import 'package:google_fonts/google_fonts.dart';
 class ResponsiveText {
   static double responsiveFontSize(BuildContext context, double baseSize) {
     double screenWidth = MediaQuery.of(context).size.width;
-    // You can adjust the multiplier based on your design requirements
+ 
     double scaleFactor =
-        screenWidth / 375.0; // Assuming the base design width is 375.0
-
+        screenWidth / 375.0; 
     return (baseSize * scaleFactor).roundToDouble();
   }
 }

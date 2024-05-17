@@ -57,7 +57,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
 
     if (response.statusCode == 200) {
       final jsonResponse = json.decode(response.body);
-      print('createSession response: $jsonResponse'); // Debug statement
+  
       return jsonResponse;
     } else if (response.statusCode == 401) {
       throw UnauthorizedException();

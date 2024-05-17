@@ -55,15 +55,13 @@ class _TabBarWidgetState extends State<TabBarWidget> {
                       child: Text(
                         e,
                         textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color:
+                        style:Theme.of(context).textTheme.headlineSmall?.copyWith(
+                           color:
                               widget.controller.index == widget.tabs.indexOf(e)
                                   ? Colors.white
                                   : Colors.black,
-                          fontSize: context.propHeight(10),
-                          fontWeight: FontWeight.w800,
-                        ),
-                      ),
+                                  fontSize: 12
+                        )  ),
                     ),
                   ),
                 )

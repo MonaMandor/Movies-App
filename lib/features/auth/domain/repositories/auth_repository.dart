@@ -10,4 +10,6 @@ abstract class AuthRepository{
   Future<Either<Failure, Unit>> validateToken (ValidateTokenParams params);
   Future<Either<Failure, int>> getAccountId(SessionEntity params);
   Future<Either<Failure, SessionEntity>> checkLogin();
+  Future<Either<Failure, Unit>> logout();
+  
 }

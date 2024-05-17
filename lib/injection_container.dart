@@ -9,6 +9,7 @@ import 'package:movie/features/auth/domain/usecases/check_login_use_case.dart';
 import 'package:movie/features/auth/domain/usecases/create_session_use_case.dart';
 import 'package:movie/features/auth/domain/usecases/create_token_use_case.dart';
 import 'package:movie/features/auth/domain/usecases/get_account_id_use_case.dart';
+import 'package:movie/features/auth/domain/usecases/logout.dart';
 import 'package:movie/features/auth/domain/usecases/validate_token_use_case.dart';
 import 'package:movie/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:movie/features/home/data/datasources/home_remote_data_source.dart';
@@ -34,16 +35,18 @@ Future<void> init() async {
 
   // Bloc
 
-  sl.registerFactory(() => AuthBloc(
+  sl.registerLazySingleton(() => AuthBloc(
         createSessionUseCase: sl(),
         createTokenUseCase: sl(),
         validateTokenUseCase: sl(),
         checkLoginUseCase: sl(),
         getAccountIdUseCase: sl(),
+        logoutUseCase: sl(),
       ));
 
   //usecase
   sl.registerLazySingleton(() => CeckLoginUseCase(sl()));
+  sl.registerLazySingleton(() => LogoutUseCase(sl()));
   sl.registerLazySingleton(() => CreateSessionUseCase(sl()));
   sl.registerLazySingleton(() => CreateTokenUseCase(sl()));
   sl.registerLazySingleton(() => ValidateTokenUseCase(sl()));
@@ -104,7 +107,7 @@ Future<void> init() async {
   //DataSource
 
   sl.registerLazySingleton<MovieRemoteDataSource>(
-      () => MovieRemoteDataSourceImpl(client: sl()));
+      () => MovieRemoteDataSourceImpl(client: sl(), ));
 
   // *core// *
   sl.registerLazySingleton<NetworkInfo>(

@@ -24,3 +24,4 @@ class AuthenticateUserEvent extends AuthEvent {
 }
 
 class CheckLoginEvent extends AuthEvent {}
+class LogoutEvent extends AuthEvent {}

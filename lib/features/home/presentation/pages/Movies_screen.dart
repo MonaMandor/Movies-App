@@ -1,11 +1,11 @@
 // features/home/presentation/pages/Movies_screen.dart
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-
 import 'package:flutter/material.dart';
 import 'package:movie/core/constansts/context_extensions.dart';
+import 'package:movie/features/movie/presentation/pages/Up_coming_movies_screen.dart';
 import 'package:movie/features/movie/presentation/pages/now_playing_screen.dart';
 import 'package:movie/features/movie/presentation/pages/popular_screen.dart';
-import 'package:movie/features/movie/presentation/pages/watch_list_screen.dart';
+import 'package:movie/features/movie/presentation/pages/top_rated_movies_screen.dart';
 import 'package:movie/features/home/presentation/widgets/tab_bar_widget.dart';
 
 class MoviesScreen extends StatefulWidget {
@@ -21,7 +21,7 @@ class _HomeScreenState extends State<MoviesScreen>
 
   @override
   void initState() {
-    _tabController = TabController(length: 2, vsync: this);
+    _tabController = TabController(length: 4, vsync: this);
     super.initState();
   }
 
@@ -39,7 +39,7 @@ class _HomeScreenState extends State<MoviesScreen>
         ),
         child: Padding(
           padding: EdgeInsets.only(
-            top: context.propHeight(60),
+            top: context.propHeight(16),
             left: context.propWidth(10),
             right: context.propWidth(10),
           ),
@@ -54,7 +54,7 @@ class _HomeScreenState extends State<MoviesScreen>
                 height: context.propHeight(60),
                 width: double.infinity,
                 child: TabBarWidget(
-                  tabs: const [
+                  tabs:  [
                     "Now playing",
                     "Popular",
                     "Top Rated",
@@ -63,13 +63,18 @@ class _HomeScreenState extends State<MoviesScreen>
                   controller: _tabController,
                 ),
               ),
+              SizedBox(
+                height: context.propHeight(20),
+              ),
               Expanded(
                 // Use Expanded to constrain the height of TabBarView
                 child: TabBarView(
                   controller: _tabController,
                   children: [
                     NowPlayingScreen(),
-                    WatchListScreen(),
+                    PopularScreen(),
+                    RopRatedMoviesScreen(),
+                    UpComingScreen(),
                   ],
                 ),
               ),

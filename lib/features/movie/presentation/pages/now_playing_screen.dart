@@ -1,33 +1,18 @@
 // features/movie/presentation/pages/now_playing_screen.dart
-import 'package:flutter/material.dart';import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movie/core/apis/apis_url.dart';
+import 'package:flutter/material.dart';
 import 'package:movie/features/movie/presentation/bloc/movie_bloc.dart';
 import 'package:movie/features/movie/presentation/widgets/now_playing_list_widget.dart';
+import 'package:movie/injection_container.dart';
 
 class NowPlayingScreen extends StatefulWidget {
-  const NowPlayingScreen({Key? key}) : super(key: key);
+  const NowPlayingScreen({super.key});
 
   @override
   State<NowPlayingScreen> createState() => _NowPlayingScreenState();
 }
 
-class _NowPlayingScreenState extends State<NowPlayingScreen> with AutomaticKeepAliveClientMixin {
-  int currentPage = 1;
-
-  @override
-  void initState() {
-    super.initState();
-    fetchMovies();
-  }
-
-  void fetchMovies() {
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
-     
-      context.read<MovieBloc>().add(GetMoviesEvent(page: currentPage, moviesType: ApiUrl.nowPlayingMovies));
-    });
-  }
-
+class _NowPlayingScreenState extends State<NowPlayingScreen>
+    with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
 
@@ -44,24 +29,8 @@ class _NowPlayingScreenState extends State<NowPlayingScreen> with AutomaticKeepA
             colors: [Color.fromARGB(255, 59, 5, 52), Color(0xFF14151C)],
           ),
         ),
-        child: BlocBuilder<MovieBloc, MovieState>(
-          builder: (context, state) {
-            if (state is GetMoviesLoading && currentPage == 1) {
-              return const Center(child: CircularProgressIndicator());
-            } else if (state is GetMoviesLoaded) {
-              return BuildNowPlayingList(
-                movies: state.movies,
-                onScrollEnd: () {
-                  currentPage++;
-                  fetchMovies();
-                },
-              );
-            } else if (state is GetMoviesError) {
-              return Center(child: Text(state.message));
-            }
-            return Container();
-          },
-        ),
+        child: BuildNowPlayingList(
+           ),
       ),
     );
   }

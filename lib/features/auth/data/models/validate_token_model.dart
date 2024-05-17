@@ -1,5 +1,5 @@
 // features/auth/data/models/validate_token_model.dart
-import 'package:movie/features/auth/domain/entities/validate_token_params.dart';import 'package:movie/features/auth/domain/entities/validate_token_params.dart';
+import 'package:movie/features/auth/domain/entities/validate_token_params.dart';
 
 class VlidateTokenModel extends ValidateTokenParams {
   const VlidateTokenModel({

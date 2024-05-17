@@ -1,6 +1,5 @@
 // features/auth/data/repositories/auth_repository_impl.dart
 import 'package:dartz/dartz.dart';
-import 'package:dartz/dartz.dart';
 import 'package:movie/core/errors/exception.dart';
 import 'package:movie/core/errors/failurs.dart';
 import 'package:movie/core/network/network_info.dart';
@@ -109,15 +108,15 @@ class AuthRepositoryImpl implements AuthRepository {
       return Left(CacheFailure());
     }
   }
-  
+
   @override
-  Future<Either<Failure, int>> getAccountId(SessionEntity params)async {
+  Future<Either<Failure, int>> getAccountId(SessionEntity params) async {
     final sessionModel = SessionModel(sessionId: params.sessionId);
     if (await networkInfo.isConnected) {
       try {
         final accountId = await remoteDataSource.getAccountId(sessionModel);
         await localDataSource.cachAccountId(accountId);
-        return Right(accountId );
+        return Right(accountId);
       } on ServerException {
         return Left(ServerFailure());
       } on UnauthorizedException {
@@ -128,6 +127,11 @@ class AuthRepositoryImpl implements AuthRepository {
     } else {
       return Left(NoInternetFailure());
     }
-   
+  }
+
+  @override
+  Future<Either<Failure, Unit>> logout() {
+    localDataSource.clearAll();
+    return Future.value(const Right(unit));
   }
 }

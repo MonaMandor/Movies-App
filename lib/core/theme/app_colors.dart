@@ -1,14 +1,12 @@
 // core/theme/app_colors.dart
-import 'package:flutter/material.dart';import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 
 class AppColors {
   static  Color primaryColor = Color(0xFF2F3142);
   static  Color secondaryColor = Color(0xFF7F00FF);
   static  Color scaffoldBackground = Color(0xFF2F3142);
   static  Color primaryTextColor =   HexColor("#FFFFFF");
-  static  Color secondaryTextColor = HexColor("#232E37");
-  static  Color thirdTextColor =   HexColor("#0C0C0C");
-  static  Color fourthTextColor =  HexColor("#FFB319");
+ static  Color fourthTextColor =  HexColor("#FFB319");
 
   
 
