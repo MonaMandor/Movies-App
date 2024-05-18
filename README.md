@@ -2,7 +2,7 @@
 
 This is a basic TMDB client application built using Flutter. The app demonstrates key functionalities such as authentication, viewing different categories of movies (now playing, popular, top-rated, upcoming), viewing movie details, adding movies to a watchlist, and viewing the watchlist. The project follows Clean Architecture principles and uses the BLoC pattern for state management.
 
-- Apk: [Apk](https://drive.google.com/file/d/1hUIdHKSHIj70Ii_2aOpHj-m10z0cCVb1/view?usp=drive_link)
+- Apk: [Apk i also upload it in files](https://drive.google.com/file/d/1hUIdHKSHIj70Ii_2aOpHj-m10z0cCVb1/view?usp=drive_link)
 - Dimo: [Dimo](https://drive.google.com/file/d/1hUIdHKSHIj70Ii_2aOpHj-m10z0cCVb1/view?usp=drive_link)
 
 
