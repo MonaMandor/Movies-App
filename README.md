@@ -36,5 +36,6 @@ Clean Architecture provides a way to organize code in a way that separates conce
 3.  **Scalability**: Facilitates adding new features without major rewrites.
 By adhering to Clean Architecture, the codebase becomes more robust and adaptable to changes, reducing the risk of bugs and making the development process more efficient.
 
+https://github.com/MonaMandor/Movies-App/assets/105756168/d393aacd-3199-448d-be88-fee5e60de266
 
 
