@@ -1,8 +1,6 @@
 // main.dart
 
 import 'dart:developer';
-
-import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -32,10 +30,7 @@ void main() async {
     ],
     child: ModularApp(
       module: AppModule(),
-      child: DevicePreview(
-        enabled: false,
-        builder: (BuildContext context) => const MyApp(),
-      ),
+      child: const MyApp(),
     ),
   ));
 }
